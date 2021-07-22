@@ -1,4 +1,4 @@
-const API_ROOT = 'http://localhost:8081'
+const API_ROOT = `http://${window.location.host.split(':')[0]}:8081`;
 
 const get_image_url = (post) => { return `${API_ROOT}/s/img/${post.path}/${post.id}-${post.filename}`; };
 const get_thumb_url = (post) => { return `${API_ROOT}/s/tmb/${post.path}/${post.id}-thumbnail.jpg`; };

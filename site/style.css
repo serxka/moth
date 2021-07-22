@@ -2,7 +2,6 @@
 	--header-font: Helvetica, Tahoma, Verdana, sans-serif;
 	--body-font: Verdana, Helvetica, sans-serif;
 	--monospace-font: monospace;
-	
 	--col-dark-fg: #e8f0f5;
 	--col-dark-sec: #b9cbd6;
 	--col-dark-bg: #191c1e;
@@ -61,7 +60,6 @@ form {
 	background-color: var(--col-dark-bg);
 	color: var(--col-dark-fg);
 	padding: 15px 30px;
-	display; flex
 }
 
 #view {
@@ -166,28 +164,36 @@ form {
 a.stealth_link {
 	text-decoration: none;
 }
+
 a.stealth_link:link {
 	color: var(--col-light-fg);
 }
+
 a.stealth_link:visited {
 	color: var(--col-light-fg);
 }
+
 a.stealth_link:hover {
 	color: var(--col-light-sec);
 	text-decoration: underline;
 }
+
 a.stealth_link:active {
 	color: var(--col-light-sec);
 }
+
 a.dark.stealth_link:link {
 	color: var(--col-dark-fg);
 }
+
 a.dark.stealth_link:visited {
 	color: var(--col-dark-fg);
 }
+
 a.dark.stealth_link:hover {
 	color: var(--col-dark-sec);
 }
+
 a.dark.stealth_link:active {
 	color: var(--col-dark-sec);
 }

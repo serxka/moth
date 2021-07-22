@@ -12,7 +12,6 @@ function print_arrows(p) {
 }
 
 function set_tags(tags) {
-	console.log(tags);
 	let tags_dom = document.getElementById('post_tags');
 	for (tag of tags) {
 		let dom = document.createElement('span');
