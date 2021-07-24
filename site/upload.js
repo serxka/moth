@@ -21,7 +21,7 @@ function upload_post(form) {
 	let form_data = new FormData();
 	let data = {
 		description: description,
-		tags: tags.split(' ').filter(t => t)
+		tags: tags.split(',').filter(t => t).map(t => t.trim())
 	};
 	if (file.files.length == 0)
 		return error_upload('error: no image has been provided');

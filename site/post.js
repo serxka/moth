@@ -22,15 +22,17 @@ function display_post(post) {
 	// Set the image src, description and tags
 	document.getElementById('post_img').src = get_image_url(post);
 	document.getElementById('post_desc').innerHTML = post.description == '' ? 'No Description Provided' : post.description;
-	set_tags(post.tags);
+	set_tags(post.tag_vector);
 	
 	// Set the details
 	let details = document.getElementById('post_details');
 	details.children[0].children[1].innerHTML = post.id;
-	details.children[1].children[1].innerHTML = new Date(post.upload_date).toUTCString();
-	details.children[2].children[1].innerHTML = human_readable_bytes(post.size);
+	details.children[1].children[1].innerHTML = post.rating;
+	details.children[2].children[1].innerHTML = post.score;
 	details.children[3].children[1].innerHTML = `${post.width} x ${post.height}`;
-	details.children[4].children[1].innerHTML = post.score;
+	details.children[4].children[1].innerHTML = human_readable_bytes(post.size);
+	details.children[5].children[1].innerHTML = new Date(post.create_date).toUTCString();
+	details.children[6].children[1].innerHTML = new Date(post.create_date).toUTCString();
 	
 	// Set actions
 	document.getElementById('download_link').href = get_image_url(post);
