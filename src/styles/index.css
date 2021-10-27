@@ -169,6 +169,20 @@ aside {
 	height: auto;
 }
 
+.grid {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: flex-start;
+}
+
+.grid-thumbnail {
+	margin: 10px;
+}
+
 a.hidden-link {
 	text-decoration: none;
 }

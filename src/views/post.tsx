@@ -1,50 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { IPost } from "watame";
 
+import ClientContext from "../client";
 import SideBar from "../components/sidebar";
-import conf from "../config";
-
-interface IPostData {
-	id: number;
-	poster: number;
-	tag_vector: string[];
-	create_date: string;
-	modified_date: string;
-	description: string;
-	rating: string;
-	score: number;
-	views: number;
-	source?: string;
-	filename: string;
-	ext: string;
-	size: number;
-	width: number;
-	height: number;
-	is_deleted: boolean;
-}
+import conf from "../util";
 
 function Post(props: any): JSX.Element {
 	let [id] = useState(props.match.params.id);
-	let [data, setData] = useState<IPostData | undefined>(undefined);
+	let [post, setPost] = useState<IPost | undefined>(undefined);
+	const client = ClientContext();
 
 	useEffect(() => {
-		fetch(`${conf.apiuri}/post?id=${id}`)
-			.then((res) => res.json())
-			.then((json) => setData(json));
-	}, [id]);
+		if (client === undefined) return;
+		const fetchPost = async () => setPost(await client.getPostById(id));
+		fetchPost();
+	}, [client, id]);
 
-	let sidebar, post;
-	if (data !== undefined) {
+	let sidebar, view;
+	if (post !== undefined) {
 		sidebar = (
 			<SideBar>
-				<TagList tags={data.tag_vector} />
-				<InfoList data={data} />
+				<TagList tags={post.tag_vector} />
+				<InfoList data={post} />
 			</SideBar>
 		);
-		post = (
+		view = (
 			<div className="content">
-				<img className="fitimage" alt="" src={format_path(data)} />
-				<Description desc={data.description} />
+				<img className="fitimage" alt="" src={format_path(post)} />
+				<Description desc={post.description} />
 			</div>
 		);
 	} else {
@@ -53,13 +37,13 @@ function Post(props: any): JSX.Element {
 				<h3>Post loading...</h3>
 			</SideBar>
 		);
-		post = null;
+		view = null;
 	}
 
 	return (
 		<div className="main">
 			{sidebar}
-			{post}
+			{view}
 		</div>
 	);
 }
@@ -79,7 +63,7 @@ function TagList(props: { tags: string[] }) {
 	);
 }
 
-function InfoList({ data }: { data: IPostData }): JSX.Element {
+function InfoList({ data }: { data: IPost }): JSX.Element {
 	function ListItem({
 		label,
 		value,
@@ -144,7 +128,7 @@ const human_readable_bytes = (size: number): string => {
 	else return `${Math.round(size / 1000)}KB`;
 };
 
-const format_path = (p: any): string => {
+const format_path = (p: IPost): string => {
 	return `${conf.apiuri}/s/img/${p.path}/${p.id}-${p.filename}`;
 };
 
