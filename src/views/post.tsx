@@ -3,8 +3,7 @@ import { withRouter } from "react-router-dom";
 import { IPost } from "watame";
 
 import ClientContext from "../client";
-import SideBar from "../components/sidebar";
-import conf from "../util";
+import SideBar, { TagList } from "../components/sidebar";
 
 function Post(props: any): JSX.Element {
 	let [id] = useState(props.match.params.id);
@@ -27,7 +26,11 @@ function Post(props: any): JSX.Element {
 		);
 		view = (
 			<div className="content">
-				<img className="fitimage" alt="" src={format_path(post)} />
+				<img
+					className="fitimage"
+					alt=""
+					src={client.getImagePath(post)}
+				/>
 				<Description desc={post.description} />
 			</div>
 		);
@@ -45,21 +48,6 @@ function Post(props: any): JSX.Element {
 			{sidebar}
 			{view}
 		</div>
-	);
-}
-
-function TagList(props: { tags: string[] }) {
-	return (
-		<>
-			<h3>Tags</h3>
-			<ul className="post-tags">
-				{props.tags.map((tag, idx) => (
-					<span key={idx} className="post-tag">
-						{tag}
-					</span>
-				))}
-			</ul>
-		</>
 	);
 }
 
@@ -126,10 +114,6 @@ function Description(props: { desc: string }): JSX.Element {
 const human_readable_bytes = (size: number): string => {
 	if (size / 1000 > 1000) return `${(size / 1000 / 1000).toFixed(1)}MB`;
 	else return `${Math.round(size / 1000)}KB`;
-};
-
-const format_path = (p: IPost): string => {
-	return `${conf.apiuri}/s/img/${p.path}/${p.id}-${p.filename}`;
 };
 
 export default withRouter(Post);

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { IPost } from "watame";
 
 import ClientContext from "../client";
 import SideBar from "../components/sidebar";
-import conf, { useEffectDeep } from "../util";
+import { useEffectDeep } from "../util";
 
 function Browse(props: any): JSX.Element {
 	let [posts, setPosts] = useState<IPost[]>([]);
@@ -23,7 +23,7 @@ function Browse(props: any): JSX.Element {
 
 	let sidebar, view;
 	if (posts !== undefined) {
-		sidebar = <SideBar />;
+		sidebar = <SideBar tags={tags} />;
 		view = <ImageGrid posts={posts} />;
 	} else {
 		sidebar = <SideBar />;
@@ -49,21 +49,18 @@ function ImageGrid({ posts }: { posts: IPost[] }): JSX.Element {
 }
 
 function GridPost({ post }: { post: IPost }): JSX.Element {
+	const client = ClientContext();
 	return (
 		<div className="grid-thumbnail">
-			<a href={`/post/${post.id}`}>
+			<Link to={`/post/${post.id}`}>
 				<img
-					src={format_path(post)}
+					src={client.getThumbnailPath(post)}
 					width="250"
 					alt={`post.${post.id}`}
 				/>
-			</a>
+			</Link>
 		</div>
 	);
 }
-
-const format_path = (p: IPost): string => {
-	return `${conf.apiuri}/s/tmb/${p.path}/${p.id}.jpg`;
-};
 
 export default withRouter(Browse);

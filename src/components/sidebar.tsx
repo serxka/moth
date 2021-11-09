@@ -7,6 +7,7 @@ function SideBar(props: any): JSX.Element {
 			<h2>Search</h2>
 			<SearchBar />
 			{props.children}
+			{props.tags === undefined || <TagList tags={props.tags} />}
 		</aside>
 	);
 }
@@ -37,5 +38,22 @@ function SearchBar(): JSX.Element {
 	);
 }
 
+function TagList(props: { tags: string[] }) {
+	let tags = props.tags.filter((e) => e.trim() !== "");
+	if (tags.length === 0) return <></>;
+	return (
+		<>
+			<h3>Tags</h3>
+			<ul className="post-tags">
+				{tags.map((tag, idx) => (
+					<span key={idx} className="post-tag">
+						{tag}
+					</span>
+				))}
+			</ul>
+		</>
+	);
+}
+
 export default SideBar;
-export { SearchBar };
+export { SearchBar, TagList };

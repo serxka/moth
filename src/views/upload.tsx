@@ -31,17 +31,22 @@ function Upload(): JSX.Element {
 					<strong>Image: </strong>
 					<input type="file" accept="image/*" required />
 				</label>
+				<br />
 				<label>
 					<strong>Tags: </strong>
+					<br />
 					<textarea
 						placeholder="comma separated tags go here"
 						required
 					></textarea>
 				</label>
+				<br />
 				<label>
 					<strong>Description: </strong>
+					<br />
 					<textarea placeholder="An image description, optional"></textarea>
 				</label>
+				<br />
 				<button>Upload</button>
 				{uploaded < 0 || (
 					<strong>
