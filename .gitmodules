@@ -1,0 +1,3 @@
+[submodule "watame_api"]
+	path = watame_api
+	url = https://github.com/serxka/watame_api
