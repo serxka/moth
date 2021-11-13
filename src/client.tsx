@@ -12,7 +12,7 @@ export const ClientProvider = (props: any) => {
 	const [data, setData] = useState<Client | undefined>(undefined);
 
 	const getClient = async () => {
-		const client = await Watame.client("http://localhost:8081");
+		const client = await Watame.client(`https://${window.location.host.split(":")[0]}:8443`);
 		setData(client);
 	};
 
